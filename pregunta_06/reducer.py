@@ -2,19 +2,23 @@
 # >>> Escriba el codigo del reducer a partir de este punto <<<
 #
 import sys
-biggest_amount = {}
-smaller_amount = {}
-
-def set_bigger_smaller_amount(biggest_amount, smaller_amount, actual_element):
-    element_array = actual_element.split("*")
-    biggest_amount[element_array[0]] = max(
-        float(biggest_amount.get(element_array[0]) or 0), float(element_array[1]))
-    smaller_amount[element_array[0]] = min(
-        float(smaller_amount.get(element_array[0]) or 10000), float(element_array[1]))
-    return biggest_amount, smaller_amount
-
-for line in sys.stdin:
-    set_bigger_smaller_amount(biggest_amount, smaller_amount, line)
-
-for max, min in zip(biggest_amount.items(), smaller_amount.items()):
-    print( max[0] + "	" + str(max[1]) + "	" + str(min[1]) )
+if __name__ == '__main__':
+    current_value = None
+    max_value = 0
+    min_value = 0
+    for line in sys.stdin:
+        line = line.strip()
+        key, value = line.split(',')
+        value = float(value)
+        if key == current_value:
+            if value > max_value:
+                max_value = value
+            if value < min_value:
+                min_value = value
+        else:
+            if current_value is not None:
+                sys.stdout.write("{}\t{}\t{}\n".format(current_value, max_value, min_value))
+            current_value = key
+            max_value = value
+            min_value = value
+    sys.stdout.write("{}\t{}\t{}\n".format(current_value, max_value, min_value))

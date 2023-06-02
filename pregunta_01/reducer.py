@@ -4,14 +4,17 @@
 
     
 import sys
-biggest_purposes = {}
-
-def set_bigger_purpose(dictionary_purposes, actual_element):
-    dictionary_purposes[actual_element] = int(dictionary_purposes.get(actual_element) or 0)  +1 
-    return dictionary_purposes
-
-for line in sys.stdin:
-    set_bigger_purpose(biggest_purposes, line.replace("\n", ""))
-
-for purpose, amount in biggest_purposes.items():
-    print(purpose + "	" + str(amount))
+if __name__ == '__main__':
+    c_item = None
+    total = 0
+    for line in sys.stdin:
+        item, val = line.split("\t")
+        val = int(val)
+        if item == c_item:
+            total += val
+        else:
+            if c_item is not None:
+                sys.stdout.write("{}\t{}\n".format(c_item, total))
+            c_item = item
+            total = val
+    sys.stdout.write("{}\t{}\n".format(c_item, total))
