@@ -2,11 +2,14 @@
 # >>> Escriba el codigo del reducer a partir de este punto <<<
 #
 import sys
+datos=[]
 if __name__ == '__main__':
-    l = []
     for line in sys.stdin:
-        key, fe, val = line.strip().split(",")
-        l.append((key, fe, val))
-    l = sorted(l, key=lambda x: int(x[2]))[:6]
-    for i in l:
-        sys.stdout.write("{}   {}   {}\n".format(i[0], i[1], i[2]))
+        dat=line.strip()
+        datos.append(dat.split(","))
+        #print(datos)
+    datos.sort(key=lambda x: (int(x[2])))
+    #print(datos)
+    for i in datos[:6]:
+        #print(i[0]+','+i[1])
+        sys.stdout.write(i[0]+'   '+i[1]+'   '+i[2]+'\n')

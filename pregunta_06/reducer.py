@@ -2,23 +2,26 @@
 # >>> Escriba el codigo del reducer a partir de este punto <<<
 #
 import sys
+
 if __name__ == '__main__':
-    current_value = None
-    max_value = 0
-    min_value = 0
+
+    curkey = None
+    maximo = 0
+    minimo = 0
     for line in sys.stdin:
-        line = line.strip()
-        key, value = line.split(',')
-        value = float(value)
-        if key == current_value:
-            if value > max_value:
-                max_value = value
-            if value < min_value:
-                min_value = value
+        #print(line.split("\t"))
+        
+        key, val = line.split("\t")
+        #print(value)
+        #print(curkey)
+        if key == curkey:
+            maximo=max(maximo,val)
+            minimo=min(minimo,val)
         else:
-            if current_value is not None:
-                sys.stdout.write("{}\t{}\t{}\n".format(current_value, max_value, min_value))
-            current_value = key
-            max_value = value
-            min_value = value
-    sys.stdout.write("{}\t{}\t{}\n".format(current_value, max_value, min_value))
+            if curkey is not None:
+                sys.stdout.write("{}\t{}\t{}\n".format(curkey[0], maximo.strip(),minimo.strip()))
+
+            curkey = key
+            maximo= val
+            minimo= val
+    sys.stdout.write("{}\t{}\t{}\n".format(curkey[0], maximo.strip(), minimo.strip()))

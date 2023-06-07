@@ -1,24 +1,28 @@
 #
 # >>> Escriba el codigo del reducer a partir de este punto <<<
 #
-import sys  
+import sys
+
 if __name__ == '__main__':
-    current_item = None
-    total = 0
-    n = 0
-    promedio = 0
+
+    curkey = None
+    suma = 0
+    tot=0
     for line in sys.stdin:
+        #print(line.split("\t"))
+        
         key, val = line.split(",")
-        val = float(val)
-        if key == current_item:
-            total += val
-            n += 1
-            promedio = total/n
+        if key == curkey:
+            suma=suma+float(val.strip())
+            tot+=1
         else:
-            if current_item is not None:
-                sys.stdout.write("{}\t{}\t{}\n".format(current_item, total, promedio))
-            current_item = key
-            total = val
-            n = 1
-            promedio = total/n
-    sys.stdout.write("{}\t{}\t{}\n".format(current_item, total,promedio))
+            if curkey is not None:
+                mean=int(suma)/int(tot)
+                sys.stdout.write("{}\t{}\t{}\n".format(curkey[0], suma,mean))
+
+            curkey = key
+            suma= float(val.strip())
+            tot=1
+
+    mean=int(suma)/int(tot)
+    sys.stdout.write("{}\t{}\t{}\n".format(curkey[0], suma, mean))
